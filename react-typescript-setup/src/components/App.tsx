@@ -1,11 +1,10 @@
 import React from 'react';
-import AppCSS from './App.module.css';
-import pizzas from '../data/pizzas.json';
 
-// components
+import AppCSS from './App.module.css';
+
+import pizzas from '../data/pizzas.json';
 import { Pizza } from './Pizza';
 
-// img, svg ...
 import PizzaSVG from '../svg/pizza.svg';
 
 const App = () => {

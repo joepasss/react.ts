@@ -8,7 +8,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "jsx": "react",
-    "sourceMap": true, // using ts-loader
+    "sourceMap": true,
     "resolveJsonModule": true,
     "moduleResolution": "Node",
     "plugins": [{ "name": "typescript-plugin-css-modules" }]
