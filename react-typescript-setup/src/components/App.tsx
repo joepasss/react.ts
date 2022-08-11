@@ -7,22 +7,25 @@ import { Pizza } from './Pizza';
 
 import PizzaSVG from '../svg/pizza.svg';
 import Cart from './Cart';
+import AppStateProvider from './AppState';
 
 const App = () => {
   return (
-    <div className={AppCSS.container}>
-      <div className={AppCSS.header}>
-        <PizzaSVG width={120} height={120} />
-        <div className={AppCSS.siteTitle}>Delicious Pizza</div>
-        <Cart />
-      </div>
+    <AppStateProvider>
+      <div className={AppCSS.container}>
+        <div className={AppCSS.header}>
+          <PizzaSVG width={120} height={120} />
+          <div className={AppCSS.siteTitle}>Delicious Pizza</div>
+          <Cart />
+        </div>
 
-      <ul>
-        {pizzas.map((pizza) => {
-          return <Pizza pizza={pizza} key={pizza.id} />;
-        })}
-      </ul>
-    </div>
+        <ul>
+          {pizzas.map((pizza) => {
+            return <Pizza pizza={pizza} key={pizza.id} />;
+          })}
+        </ul>
+      </div>
+    </AppStateProvider>
   );
 };
 
