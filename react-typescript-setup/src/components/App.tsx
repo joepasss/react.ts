@@ -2,10 +2,15 @@ import React from 'react';
 
 import AppCSS from './App.module.css';
 
-import pizzas from '../data/pizzas.json';
-import { Pizza } from './Pizza';
-
+// images & SVGs
 import PizzaSVG from '../svg/pizza.svg';
+
+// Datas
+import pizzas from '../data/pizzas.json';
+
+// Components
+import { Pizza } from './Pizza';
+import Cart from './Cart';
 
 const App = () => {
   return (
@@ -13,6 +18,7 @@ const App = () => {
       <div className={AppCSS.header}>
         <PizzaSVG width={120} height={120} />
         <div className={AppCSS.siteTitle}>Delicious Pizza</div>
+        <Cart />
       </div>
 
       <ul>
