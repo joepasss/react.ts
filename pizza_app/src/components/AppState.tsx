@@ -6,7 +6,7 @@ import React, {
   useReducer,
 } from 'react';
 
-interface CartItem {
+export interface CartItem {
   id: number;
   name: string;
   price: number;
