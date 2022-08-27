@@ -33,7 +33,9 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.5",
+    "@types/classnames": "^2.3.1",
     "@types/react-redux": "^7.1.24",
+    "classnames": "^2.3.1",
     "react-redux": "^8.0.2",
     "redux": "^4.2.0"
   }
