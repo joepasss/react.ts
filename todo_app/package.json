@@ -49,6 +49,7 @@
     ]
   },
   "devDependencies": {
+    "@reduxjs/toolkit": "https://pkg.csb.dev/reduxjs/redux-toolkit/commit/933aa4a1/@reduxjs/toolkit",
     "concurrently": "^7.3.0",
     "json-server": "^0.17.0"
   }
