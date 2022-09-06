@@ -1,7 +1,8 @@
+import { StateType } from "./types";
 import { AnyAction } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
 
-const initialState = {
+const initialState: StateType = {
   muffins: [
     { id: 1, name: "Chocolate chip muffin" },
     { id: 2, name: "Blueberry muffin" },
