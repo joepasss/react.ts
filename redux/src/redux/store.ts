@@ -1,8 +1,8 @@
 import {
+  LikeMuffinAction,
   LoadFailureAction,
   LoadRequestAction,
   LoadSuccessAction,
-  MuffinLike,
   StateType,
 } from "./types";
 import { configureStore } from "@reduxjs/toolkit";
@@ -10,13 +10,17 @@ import thunk from "redux-thunk";
 
 const initialState: StateType = {
   muffins: [],
-  muffinsLoading: false,
-  muffinsError: "",
+  isLoading: false,
+  errorMsg: "",
 };
 
 const reducer = (
   state = initialState,
-  action: MuffinLike | LoadRequestAction | LoadSuccessAction | LoadFailureAction
+  action:
+    | LikeMuffinAction
+    | LoadRequestAction
+    | LoadSuccessAction
+    | LoadFailureAction
 ) => {
   switch (action.type) {
     case "muffins/like":
@@ -33,15 +37,15 @@ const reducer = (
       };
 
     case "muffins/load_request":
-      return { ...state, muffinsLoading: true };
+      return { ...state, isLoading: true };
 
     case "muffins/load_success":
       const { muffins } = action.payload;
-      return { ...state, muffinsLoading: false, muffins };
+      return { ...state, isLoading: false, muffins };
 
     case "muffins/load_failure":
       const { error } = action;
-      return { ...state, muffinsLoading: false, muffinsError: error };
+      return { ...state, isLoading: false, errorMsg: error };
 
     default:
       return state;

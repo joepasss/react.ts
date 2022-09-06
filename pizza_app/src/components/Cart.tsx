@@ -20,19 +20,9 @@ class Cart extends React.Component<Props, State> {
     };
 
     this.#containerRef = createRef();
-
-    // this.handleClick = this.handleClick.bind(this);
   }
 
-  // handleClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-  //   this.setState((prevState) => ({ isOpen: !prevState.isOpen }));
-  // }
-
   handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    console.log(e.target);
-    if ((e.target as HTMLElement).nodeName === 'span') {
-      // (e.target as HTMLSpanElement).;
-    }
     this.setState((prevState) => ({ isOpen: !prevState.isOpen }));
   };
 
@@ -71,6 +61,7 @@ class Cart extends React.Component<Props, State> {
                 <FiShoppingCart />
                 <span>{itemsCount} pizza(s)</span>
               </button>
+
               <div
                 className={CartCSS.cartDropDown}
                 style={{ display: this.state.isOpen ? 'block' : 'none' }}
@@ -79,7 +70,7 @@ class Cart extends React.Component<Props, State> {
                   {state.cart.items.map((item) => {
                     return (
                       <li key={item.id}>
-                        {item.name} &times; {item.quantity}{' '}
+                        {item.name} &times; {item.quantity}
                       </li>
                     );
                   })}

@@ -2,8 +2,8 @@ import { Action } from "redux";
 
 export interface StateType {
   muffins: MuffinType[];
-  muffinsLoading: boolean;
-  muffinsError: string;
+  isLoading: boolean;
+  errorMsg: string;
 }
 
 export interface MuffinType {
@@ -11,9 +11,7 @@ export interface MuffinType {
   name: string;
   likes: number;
 }
-
-// Actions
-export interface MuffinLike extends Action<"muffins/like"> {
+export interface LikeMuffinAction extends Action<"muffins/like"> {
   payload: {
     id: number;
   };

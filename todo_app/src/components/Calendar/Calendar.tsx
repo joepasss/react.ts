@@ -1,13 +1,15 @@
 import React, { useEffect } from "react";
-import { connect, ConnectedProps } from "react-redux";
-import { addZero } from "../../lib/utils";
-import { RootState } from "../../redux/store";
-import {
-  selectUserEventsArray,
-  loadUserEvents,
-  UserEvent,
-} from "../../redux/user-events";
 import "./Calendar.css";
+
+// redux
+import { RootState } from "../redux/store";
+import { connect, ConnectedProps } from "react-redux";
+import {
+  loadUserEvents,
+  selectUserEventsArray,
+  UserEvent,
+} from "../redux/user-events";
+import { addZero } from "../lib/util";
 
 const mapState = (state: RootState) => ({
   events: selectUserEventsArray(state),

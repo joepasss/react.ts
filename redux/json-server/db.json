@@ -1,17 +1,17 @@
 {
   "test": {
-    "hi": "HELLO!"
+    "HI": "HELLO!"
   },
   "muffins": [
     {
       "id": 1,
       "name": "Chocolate chip muffin",
-      "likes": 11
+      "likes": 10
     },
     {
       "id": 2,
       "name": "Blueberry muffin",
-      "likes": 10
+      "likes": 8
     }
   ]
 }

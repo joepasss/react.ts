@@ -41,7 +41,7 @@ interface AddToCartAction extends Action<'ADD_TO_CART'> {
   };
 }
 
-interface InitalizeCartAction extends Action<'INITIALIZE_CART'> {
+interface InializeCartAction extends Action<'INITIALIZE_CART'> {
   payload: {
     cart: AppStateValue['cart'];
   };
@@ -49,11 +49,12 @@ interface InitalizeCartAction extends Action<'INITIALIZE_CART'> {
 
 const reducer = (
   state: AppStateValue,
-  action: AddToCartAction | InitalizeCartAction
+  action: AddToCartAction | InializeCartAction
 ) => {
   if (action.type === 'ADD_TO_CART') {
     const itemToAdd = action.payload.item;
-    const itemExists = state.cart.items.find(
+
+    const isItemExist = state.cart.items.find(
       (item) => item.id === itemToAdd.id
     );
 
@@ -61,11 +62,12 @@ const reducer = (
       ...state,
       cart: {
         ...state.cart,
-        items: itemExists
+        items: isItemExist
           ? state.cart.items.map((item) => {
               if (item.id === itemToAdd.id) {
                 return { ...item, quantity: item.quantity + 1 };
               }
+
               return item;
             })
           : [...state.cart.items, { ...itemToAdd, quantity: 1 }],
@@ -83,7 +85,7 @@ export const useDispatch = () => {
 
   if (!dispatch) {
     throw new Error(
-      'dispatch is undefined! useDispatch was called outside of the AppSetStateContext provider'
+      'dispatch is undefined! useSetState was called outside of the AppSetStateContext Provider'
     );
   }
 

@@ -1,31 +1,25 @@
-import React, { useEffect } from 'react';
-
+import React from 'react';
 import AppCSS from './App.module.css';
 
-import pizzas from '../data/pizzas.json';
-import PizzaItem from './PizzaItem';
-
-import PizzaSVG from '../svg/pizza.svg';
-import Cart from './Cart';
+// Context & types
 import AppStateProvider from './AppState';
+import { PizzaDataType } from '../types/types';
+
+// images & SVGs
+import PizzaSVG from '../svg/pizza.svg';
+
+// Datas
+import pizzas from '../data/pizzas.json';
+
+// Components
+import Pizza from './Pizza';
+import Cart from './Cart';
 import SpecialOffer from './SpecialOffer';
-import { PizzaDataType } from '../types';
 
 const App = () => {
   const specialOfferPizza = pizzas.find(
     (pizza: PizzaDataType) => pizza.specialOffer
   );
-
-  // useEffect(() => {
-  //   const listener = () => {
-  //     alert('HELLO');
-  //   };
-  //   document.addEventListener('mousedown', listener);
-
-  //   return () => {
-  //     document.removeEventListener('mousedown', listener);
-  //   };
-  // }, []);
 
   return (
     <AppStateProvider>
@@ -39,7 +33,7 @@ const App = () => {
         {specialOfferPizza && <SpecialOffer pizza={specialOfferPizza} />}
         <ul className={AppCSS.pizzaList}>
           {pizzas.map((pizza) => {
-            return <PizzaItem pizza={pizza} key={pizza.id} />;
+            return <Pizza pizza={pizza} key={pizza.id} />;
           })}
         </ul>
       </div>

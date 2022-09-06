@@ -3,25 +3,28 @@
     "id": 1,
     "name": "Napoletana",
     "description": "Fresh tomatoes and mozzarella cheese.",
-    "price": 14.99
+    "price": 14.99,
+    "specialOffer": false
   },
   {
     "id": 2,
     "name": "Marinara",
     "description": "Fresh tomatoes, extra virgin olive oil, oregano and garlic",
-    "price": 14.99
+    "price": 14.99,
+    "specialOffer": false
   },
   {
     "id": 3,
     "name": "Caprese",
     "description": "Fresh mozzarella, tomatoes, basil and balsamic vinegar.",
-    "price": 10.99,
+    "price": 14.99,
     "specialOffer": true
   },
   {
     "id": 4,
     "name": "Margherita",
     "description": "Fresh tomatoes, mozzarella cheese, fresh basil, salt and garlic.",
-    "price": 14.99
+    "price": 14.99,
+    "specialOffer": false
   }
 ]

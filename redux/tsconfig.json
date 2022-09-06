@@ -9,8 +9,8 @@
     "isolatedModules": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "moduleResolution": "node",
-    "jsx": "react"
+    "jsx": "react",
+    "moduleResolution": "node"
   },
   "include": ["./src/**/*"]
 }

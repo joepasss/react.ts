@@ -8,14 +8,14 @@ export interface AddToCartProps {
 export function withAddToCart<OriginalProps extends AddToCartProps>(
   ChildComponent: React.ComponentType<OriginalProps>
 ) {
-  const AddToCartHOC = (props: Omit<OriginalProps, keyof AddToCartProps>) => {
+  const AddtoCartHOC = (props: Omit<OriginalProps, keyof AddToCartProps>) => {
     const dispatch = useDispatch();
 
     const handleAddToCartClick: AddToCartProps['addToCart'] = (item) => {
       dispatch({
         type: 'ADD_TO_CART',
         payload: {
-          item: item,
+          item,
         },
       });
     };
@@ -28,7 +28,7 @@ export function withAddToCart<OriginalProps extends AddToCartProps>(
     );
   };
 
-  return AddToCartHOC;
+  return AddtoCartHOC;
 }
 
 export const WithAddToCartProps: React.FC<{
@@ -40,7 +40,7 @@ export const WithAddToCartProps: React.FC<{
     dispatch({
       type: 'ADD_TO_CART',
       payload: {
-        item: item,
+        item,
       },
     });
   };
@@ -55,7 +55,7 @@ export const useAddToCart = () => {
     dispatch({
       type: 'ADD_TO_CART',
       payload: {
-        item: item,
+        item,
       },
     });
   };

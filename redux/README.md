@@ -38,7 +38,6 @@ dispatch({
     food: {name: "lasagna"}
   }
 });
-
 ```
 
 Dispatching actions is the only way to change the state.
@@ -53,7 +52,6 @@ let initialState = {
     {name: "hamburger"}
   ],
 };
-
 function reducer (state = initialState, action) {
   switch (action.type) {
     case "foods/add":
@@ -62,7 +60,6 @@ function reducer (state = initialState, action) {
         ...state,
         foods: [...state.foods, food],
       };
-
     default:
       return state;
   }

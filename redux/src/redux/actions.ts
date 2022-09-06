@@ -1,15 +1,14 @@
 import {
+  StateType,
   LoadFailureAction,
   LoadRequestAction,
   LoadSuccessAction,
-  LOAD_FAILURE,
   LOAD_REQUEST,
   LOAD_SUCCESS,
+  LOAD_FAILURE,
   MuffinType,
-  StateType,
 } from "./types";
-import { ThunkAction } from "redux-thunk";
-
+import { ThunkAction } from "./../../node_modules/redux-thunk/src/types";
 export const likeMuffin = (muffinId: number) => ({
   type: "muffins/like",
   payload: { id: muffinId },
@@ -20,7 +19,7 @@ export const loadMuffins =
     void,
     StateType,
     undefined,
-    LoadRequestAction | LoadFailureAction | LoadSuccessAction
+    LoadRequestAction | LoadSuccessAction | LoadFailureAction
   > =>
   async (dispatch) => {
     dispatch({
@@ -28,7 +27,7 @@ export const loadMuffins =
     });
 
     try {
-      const response = await fetch("http://localhost:3001/muffins");
+      const response = await fetch(`http://localhost:3001/muffins`);
       const muffins: MuffinType[] = await response.json();
 
       dispatch({

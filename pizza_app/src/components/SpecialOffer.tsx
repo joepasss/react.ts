@@ -1,6 +1,6 @@
 import React from 'react';
-import { PizzaDataType } from '../types';
-import { WithAddToCartProps } from './AddToCart';
+import { PizzaDataType } from '../types/types';
+import { AddToCartProps, withAddToCart, WithAddToCartProps } from './AddToCart';
 import SpecialOfferCSS from './SpecialOffer.module.css';
 
 interface Props {
