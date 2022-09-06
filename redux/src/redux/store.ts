@@ -1,0 +1,20 @@
+import { AnyAction } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
+
+const initialState = {
+  muffins: [
+    { id: 1, name: "Chocolate chip muffin" },
+    { id: 2, name: "Bluberry muffin" },
+  ],
+};
+
+const reducer = (state = initialState, action: AnyAction) => {
+  switch (action.type) {
+    default:
+      return state;
+  }
+};
+
+const store = configureStore({
+  reducer: reducer,
+});
