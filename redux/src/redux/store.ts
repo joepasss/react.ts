@@ -1,14 +1,27 @@
-import { LikeMuffinAction, StateType } from "./types";
+import {
+  LikeMuffinAction,
+  LoadFailureAction,
+  LoadRequestAction,
+  LoadSuccessAction,
+  StateType,
+} from "./types";
 import { configureStore } from "@reduxjs/toolkit";
+import thunk from "redux-thunk";
 
 const initialState: StateType = {
-  muffins: [
-    { id: 1, name: "Chocolate chip muffin", likes: 10 },
-    { id: 2, name: "Bluberry muffin", likes: 8 },
-  ],
+  muffins: [],
+  isLoading: false,
+  errorMsg: "",
 };
 
-const reducer = (state = initialState, action: LikeMuffinAction) => {
+const reducer = (
+  state = initialState,
+  action:
+    | LikeMuffinAction
+    | LoadRequestAction
+    | LoadSuccessAction
+    | LoadFailureAction
+) => {
   switch (action.type) {
     case "muffins/like":
       const { id } = action.payload;
@@ -23,6 +36,17 @@ const reducer = (state = initialState, action: LikeMuffinAction) => {
         }),
       };
 
+    case "muffins/load_request":
+      return { ...state, isLoading: true };
+
+    case "muffins/load_success":
+      const { muffins } = action.payload;
+      return { ...state, isLoading: false, muffins };
+
+    case "muffins/load_failure":
+      const { error } = action;
+      return { ...state, isLoading: false, errorMsg: error };
+
     default:
       return state;
   }
@@ -30,6 +54,7 @@ const reducer = (state = initialState, action: LikeMuffinAction) => {
 
 const store = configureStore({
   reducer: reducer,
+  middleware: [thunk],
 });
 
 export default store;

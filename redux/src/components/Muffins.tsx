@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { likeMuffin } from "../redux/actions";
-import { selectMuffinsArray } from "../redux/selectors";
+import { likeMuffin, loadMuffins } from "../redux/actions";
+import {
+  selectErrorMsg,
+  selectIsLoading,
+  selectMuffinsArray,
+} from "../redux/selectors";
 import { MuffinType } from "../redux/types";
 
 const muffinStyle: React.CSSProperties = {
@@ -47,9 +51,19 @@ const muffinLikeButtonStyle: React.CSSProperties = {
 
 const Muffins = () => {
   const muffins = useSelector(selectMuffinsArray);
+  const isLoading = useSelector(selectIsLoading);
+  const errMsg = useSelector(selectErrorMsg);
   const dispatch = useDispatch();
 
-  return (
+  useEffect(() => {
+    dispatch(loadMuffins());
+  }, []);
+
+  return isLoading ? (
+    <p>Loading</p>
+  ) : errMsg ? (
+    <p>{errMsg}</p>
+  ) : (
     <div style={muffinStyle}>
       <h3 style={muffinH3Style}>Muffins</h3>
 
