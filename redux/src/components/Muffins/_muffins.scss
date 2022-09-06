@@ -1,0 +1,16 @@
+.muffins {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  &__header {
+    text-align: center;
+  }
+
+  &__item {
+    display: grid;
+    grid-template-columns: 20rem 3rem 3rem;
+    gap: 1rem;
+  }
+}
