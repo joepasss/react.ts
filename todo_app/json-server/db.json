@@ -1,5 +1,25 @@
 {
   "hello": {
     "hi": "hello"
-  }
+  },
+  "events": [
+    {
+      "id": 1,
+      "title": "Jogging",
+      "dateStart": "2022-08-26T02:08:10.684Z",
+      "dateEnd": "2022-08-26T03:08:10.684Z"
+    },
+    {
+      "title": "Learning Typescript",
+      "dateStart": "2022-08-26T02:08:10.684Z",
+      "dateEnd": "2022-08-26T02:08:10.684Z",
+      "id": 2
+    },
+    {
+      "title": "No Name",
+      "dateStart": "2022-09-01T16:11:09.139Z",
+      "dateEnd": "2022-09-01T16:11:13.312Z",
+      "id": 3
+    }
+  ]
 }
