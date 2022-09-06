@@ -1,4 +1,5 @@
-import { AnyAction, createStore } from "redux";
+import { AnyAction } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
 
 const initialState = {
   muffins: [
@@ -14,6 +15,8 @@ const reducer = (state = initialState, action: AnyAction) => {
   }
 };
 
-const store = createStore(reducer);
+const store = configureStore({
+  reducer: reducer,
+});
 
 export default store;
