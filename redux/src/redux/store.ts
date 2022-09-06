@@ -18,3 +18,5 @@ const reducer = (state = initialState, action: AnyAction) => {
 const store = configureStore({
   reducer: reducer,
 });
+
+export default store;
