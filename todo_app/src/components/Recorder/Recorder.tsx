@@ -6,9 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectDateStart, start, stop } from "../redux/recorder";
 import { addZero } from "../lib/util";
 import { createUserEvent } from "../redux/user-events";
+import { ThunkDispatch } from "redux-thunk";
 
 const Recorder = () => {
   const dispatch = useDispatch();
+  const thunkDispatch = useDispatch() as ThunkDispatch<any, any, any>;
   const [, setCount] = useState<number>(0);
 
   const dateStart = useSelector(selectDateStart);
@@ -20,7 +22,7 @@ const Recorder = () => {
   const handleClick = () => {
     if (started) {
       window.clearInterval(interval.current);
-      dispatch(createUserEvent());
+      thunkDispatch(createUserEvent());
       dispatch(stop());
     } else {
       dispatch(start());

@@ -1,6 +1,6 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { combineReducers } from "redux";
-import thunk from "redux-thunk";
+import { createStore } from "@reduxjs/toolkit";
+import { Action, applyMiddleware, combineReducers } from "redux";
+import thunk, { ThunkMiddleware } from "redux-thunk";
 import recorderReducer from "./recorder";
 import userEventsReducer from "./user-events";
 
@@ -11,9 +11,9 @@ const rootReducer = combineReducers({
 
 export type RootState = ReturnType<typeof rootReducer>;
 
-const store = configureStore({
-  reducer: rootReducer,
-  middleware: [thunk],
-});
+const store = createStore(
+  rootReducer,
+  applyMiddleware(thunk as ThunkMiddleware<RootState, Action>)
+);
 
 export default store;
