@@ -1,20 +1,60 @@
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
-import { ApolloServer } from "apollo-server-micro";
+import { ApolloServer, gql } from "apollo-server-micro";
+import { IResolvers } from "@graphql-tools/utils";
 import { NextApiHandler } from "next";
 
-const typeDefs = /* GraphQL */ `
-  type Query {
-    users: [User!]!
+const typeDefs = gql`
+  enum TaskStatus {
+    active
+    completed
   }
-  type User {
-    name: String
+
+  type Task {
+    id: Int!
+    title: String!
+    status: TaskStatus!
+  }
+
+  input CreateTaskInput {
+    title: String!
+  }
+
+  input UpdateTaskInput {
+    id: Int!
+    title: String
+    status: TaskStatus
+  }
+
+  type Query {
+    tasks(status: TaskStatus): [Task!]!
+    task(id: Int!): Task
+  }
+
+  type Mutation {
+    createTask(input: CreateTaskInput!): Task
+    updateTask(input: UpdateTaskInput!): Task
+    deleteTask(id: Int!): Task
   }
 `;
 
-const resolvers = {
+const resolvers: IResolvers = {
   Query: {
-    users() {
-      return [{ name: "Nextjs" }];
+    tasks(parent, args, context) {
+      return [];
+    },
+    task(parent, args, contex) {
+      return null;
+    },
+  },
+  Mutation: {
+    createTask(parent, args, contex) {
+      return null;
+    },
+    updateTask(parent, args, contex) {
+      return null;
+    },
+    deleteTask(parent, args, contex) {
+      return null;
     },
   },
 };
