@@ -12,6 +12,13 @@ docker-compose down (remove container)
 (in root)
 touch .env.local
 
+```
+MYSQL_HOST=localhost
+MYSQL_USER=development
+MYSQL_DATABASE=task_mate
+MYSQL_PASSWORD=development
+```
+
 merge with process.env.NODE_ENV
 
 ```
