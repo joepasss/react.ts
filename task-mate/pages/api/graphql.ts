@@ -1,5 +1,6 @@
 import { ApolloServer, gql } from "apollo-server-micro";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
+import mysql from "serverless-mysql";
 
 // Types
 import { NextApiHandler } from "next";
@@ -14,7 +15,7 @@ const typeDefs = gql`
   type Task {
     id: Int!
     title: String
-    status: TaskStatus
+    status: TaskStaus
   }
 
   input CreateTaskInput {
@@ -24,11 +25,11 @@ const typeDefs = gql`
   input UpdateTaskInput {
     id: Int!
     title: String
-    status: TaskStatus
+    status: TaskStaus
   }
 
   type Query {
-    tasks(status: TaskStatus): [Task!]!
+    tasks(status: TaskStaus): [Task!]!
     task(id: Int!): Task
   }
 
@@ -39,9 +40,19 @@ const typeDefs = gql`
   }
 `;
 
-const resolvers: IResolvers = {
+interface ApolloContext {
+  db: mysql.ServerlessMysql;
+}
+
+const resolvers: IResolvers<any, ApolloContext> = {
   Query: {
-    tasks(parent, args, context) {
+    async tasks(parent, args, context) {
+      const result = await context.db.query(
+        'SELECT "HELLO WORLD" as hello_world'
+      );
+      await db.end();
+      console.log({ result });
+
       return [];
     },
     task(parent, args, context) {
@@ -61,9 +72,19 @@ const resolvers: IResolvers = {
   },
 };
 
+const db = mysql({
+  config: {
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USER,
+    database: process.env.MYSQL_DATABASE,
+    password: process.env.MYSQL_PASSWORD,
+  },
+});
+
 const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
+  context: { db },
   plugins: [
     ...(process.env.NODE_ENV === "development"
       ? [ApolloServerPluginLandingPageGraphQLPlayground]

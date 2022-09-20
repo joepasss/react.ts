@@ -19,6 +19,7 @@
     "apollo-server-core": "^3.10.2",
     "apollo-server-micro": "^3.10.2",
     "eslint": "8.23.1",
-    "eslint-config-next": "12.3.1"
+    "eslint-config-next": "12.3.1",
+    "serverless-mysql": "^1.5.4"
   }
 }
