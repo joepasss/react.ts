@@ -1,13 +1,14 @@
 import { ApolloServer, gql } from "apollo-server-micro";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import mysql from "serverless-mysql";
+import { OkPacket } from "mysql";
 
 // Types
 import { NextApiHandler } from "next";
 import { IResolvers } from "@graphql-tools/utils";
 
 const typeDefs = gql`
-  enum TaskStaus {
+  enum TaskStatus {
     active
     completed
   }
@@ -15,7 +16,7 @@ const typeDefs = gql`
   type Task {
     id: Int!
     title: String
-    status: TaskStaus
+    status: TaskStatus
   }
 
   input CreateTaskInput {
@@ -25,11 +26,11 @@ const typeDefs = gql`
   input UpdateTaskInput {
     id: Int!
     title: String
-    status: TaskStaus
+    status: TaskStatus
   }
 
   type Query {
-    tasks(status: TaskStaus): [Task!]!
+    tasks(status: TaskStatus): [Task!]!
     task(id: Int!): Task
   }
 
@@ -55,17 +56,21 @@ const resolvers: IResolvers<any, ApolloContext> = {
 
       return [];
     },
+
     task(parent, args, context) {
       return null;
     },
   },
+
   Mutation: {
     createTask(parent, args, context) {
       return null;
     },
+
     updateTask(parent, args, context) {
       return null;
     },
+
     deleteTask(parent, args, context) {
       return null;
     },
