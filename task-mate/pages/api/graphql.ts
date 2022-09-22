@@ -4,6 +4,7 @@ import mysql from "serverless-mysql";
 import { OkPacket } from "mysql";
 
 // Types
+import { Resolvers, TaskStatus } from "./../../generated/graphql-backend";
 import { NextApiHandler } from "next";
 import { IResolvers } from "@graphql-tools/utils";
 
@@ -45,11 +46,6 @@ interface ApolloContext {
   db: mysql.ServerlessMysql;
 }
 
-enum TaskStatus {
-  active = "active",
-  completed = "completed",
-}
-
 interface Task {
   id: number;
   title: string;
@@ -64,13 +60,9 @@ interface TaskDbRow {
 
 type TasksDbQueryResult = TaskDbRow[];
 
-const resolvers: IResolvers<any, ApolloContext> = {
+const resolvers: Resolvers<ApolloContext> = {
   Query: {
-    async tasks(
-      parent,
-      args: { status?: TaskStatus },
-      context
-    ): Promise<Task[]> {
+    async tasks(parent, args, context) {
       const { status } = args;
       let query = "SELECT id, title, task_status FROM tasks";
       const queryParams: string[] = [];
@@ -100,20 +92,16 @@ const resolvers: IResolvers<any, ApolloContext> = {
   },
 
   Mutation: {
-    async createTask(
-      parent,
-      args: { input: { title: string } },
-      context
-    ): Promise<Task> {
+    async createTask(parent, args, context) {
       const result = await context.db.query<OkPacket>(
         "INSERT INTO tasks (title, task_status) VALUES(?, ?)",
-        [args.input.title, TaskStatus.active]
+        [args.input.title, TaskStatus.Active]
       );
 
       return {
         id: result.insertId,
         title: args.input.title,
-        status: TaskStatus.active,
+        status: TaskStatus.Active,
       };
     },
 
