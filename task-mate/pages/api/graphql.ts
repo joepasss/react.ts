@@ -1,33 +1,35 @@
-import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import { ApolloServer, gql } from "apollo-server-micro";
-import { IResolvers } from "@graphql-tools/utils";
-import { NextApiHandler } from "next";
+import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import mysql from "serverless-mysql";
 
+// Types
+import { NextApiHandler } from "next";
+import { IResolvers } from "@graphql-tools/utils";
+
 const typeDefs = gql`
-  enum TaskStatus {
+  enum TaskStaus {
     active
     completed
   }
 
   type Task {
     id: Int!
-    title: String!
-    status: TaskStatus!
+    title: String
+    status: TaskStaus
   }
 
   input CreateTaskInput {
-    title: String!
+    title: String
   }
 
   input UpdateTaskInput {
     id: Int!
     title: String
-    status: TaskStatus
+    status: TaskStaus
   }
 
   type Query {
-    tasks(status: TaskStatus): [Task!]!
+    tasks(status: TaskStaus): [Task!]!
     task(id: Int!): Task
   }
 
@@ -50,20 +52,21 @@ const resolvers: IResolvers<any, ApolloContext> = {
       );
       await db.end();
       console.log({ result });
+
       return [];
     },
-    task(parent, args, contex) {
+    task(parent, args, context) {
       return null;
     },
   },
   Mutation: {
-    createTask(parent, args, contex) {
+    createTask(parent, args, context) {
       return null;
     },
-    updateTask(parent, args, contex) {
+    updateTask(parent, args, context) {
       return null;
     },
-    deleteTask(parent, args, contex) {
+    deleteTask(parent, args, context) {
       return null;
     },
   },
@@ -94,6 +97,7 @@ let graphqlHandler: NextApiHandler | undefined;
 const handler: NextApiHandler = async (req, res) => {
   if (!graphqlHandler) {
     await apolloServer.start();
+
     graphqlHandler = apolloServer.createHandler({
       path: "/api/graphql",
     });

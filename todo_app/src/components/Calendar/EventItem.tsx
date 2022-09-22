@@ -12,8 +12,10 @@ interface Props {
 }
 
 const EventItem: React.FC<Props> = ({ event }) => {
+  const [edit, setEdit] = useState<boolean>(false);
+  const [title, setTitle] = useState<string>(event.title);
   const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
-  const [edit, setEdit] = useState<Boolean>(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleDelete = () => {
     dispatch(deleteUserEvent(event.id));
@@ -23,33 +25,29 @@ const EventItem: React.FC<Props> = ({ event }) => {
     setEdit(true);
   };
 
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const [title, setTitle] = useState<string>(event.title);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
 
-  useEffect(() => {
-    if (edit) {
-      inputRef.current?.focus();
-    }
-  }, [edit]);
-
   const handleBlur = () => {
-    if (title !== event.title) {
-      dispatch(
-        updateUserEvent({
-          ...event,
-          title,
-        })
-      );
-    }
+    dispatch(
+      updateUserEvent({
+        ...event,
+        title,
+      })
+    );
+
     setEdit(false);
   };
 
+  useEffect(() => {
+    if (edit) {
+      inputRef.current!.focus();
+    }
+  }, [edit]);
+
   return (
-    <div className="calendar-event" key={event.id}>
+    <div className="calendar-event">
       <div className="calendar-event-info">
         <div className="calendar-event-time">10:00 - 12:00</div>
         <div className="calendar-event-title">
