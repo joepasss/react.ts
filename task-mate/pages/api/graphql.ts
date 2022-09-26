@@ -1,10 +1,12 @@
-import { schema } from "../../backend/schema";
 import { ApolloServer } from "apollo-server-micro";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
-import { db } from "../../backend/db";
 
 // Types
 import { NextApiHandler } from "next";
+
+// Backend
+import { db } from "../../backend/db";
+import { schema } from "../../backend/schema";
 
 const apolloServer = new ApolloServer({
   schema,

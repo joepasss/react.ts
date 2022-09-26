@@ -63,3 +63,15 @@ query {
 }
 
 ```
+
+## GraphQL code generator
+
+---
+
+```
+npm install -D @graphql-codegen/cli
+```
+
+```
+npx graphql-code-generator init
+```

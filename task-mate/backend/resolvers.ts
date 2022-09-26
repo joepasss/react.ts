@@ -1,5 +1,5 @@
-import { Resolvers, TaskStatus } from "../generated/graphql-backend";
 import { ServerlessMysql } from "serverless-mysql";
+import { Resolvers, TaskStatus } from "../generated/graphql-backend";
 import { OkPacket } from "mysql";
 import { UserInputError } from "apollo-server-micro";
 
@@ -12,6 +12,7 @@ interface Task {
   title: string;
   status: TaskStatus;
 }
+
 interface TaskDbRow {
   id: number;
   title: string;
@@ -27,6 +28,7 @@ const getTaskById = async (id: number, db: ServerlessMysql) => {
     "SELECT id, title, task_status FROM tasks WHERE id = ?",
     [id]
   );
+
   return tasks.length
     ? {
         id: tasks[0].id,
@@ -44,7 +46,7 @@ export const resolvers: Resolvers<ApolloContext> = {
       const queryParams: string[] = [];
 
       if (status) {
-        query += " WHERE task_status = ?";
+        query += " WHERE tasks_status = ?";
         queryParams.push(status);
       }
 
@@ -52,13 +54,16 @@ export const resolvers: Resolvers<ApolloContext> = {
         query,
         queryParams
       );
+
       await context.db.end();
+
       return tasks.map(({ id, title, task_status }) => ({
         id,
         title,
         status: task_status,
       }));
     },
+
     async task(parent, args, context) {
       return await getTaskById(args.id, context.db);
     },
@@ -70,12 +75,14 @@ export const resolvers: Resolvers<ApolloContext> = {
         "INSERT INTO tasks (title, task_status) VALUES(?, ?)",
         [args.input.title, TaskStatus.Active]
       );
+
       return {
         id: result.insertId,
         title: args.input.title,
         status: TaskStatus.Active,
       };
     },
+
     async updateTask(parent, args, context) {
       const columns: string[] = [];
       const sqlParams: any[] = [];
@@ -101,6 +108,7 @@ export const resolvers: Resolvers<ApolloContext> = {
 
       return updatedTask;
     },
+
     async deleteTask(parent, args, context) {
       const task = await getTaskById(args.id, context.db);
 
