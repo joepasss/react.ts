@@ -6,7 +6,8 @@ generates:
     plugins:
       - "typescript"
       - "typescript-resolvers"
-      - "typescript-react-apollo"
+    config:
+      useIndexSignature: true
   generated/graphql-frontend.ts:
     plugins:
       - "typescript"

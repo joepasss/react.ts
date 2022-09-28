@@ -21,7 +21,7 @@ export default function Home() {
       </Head>
 
       <main>
-        <CreateTaskForm />
+        <CreateTaskForm onSuccess={result.refetch} />
         {result.loading ? (
           <p>Loading tasks...</p>
         ) : result.error ? (
