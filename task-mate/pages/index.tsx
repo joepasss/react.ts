@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { initializeApollo } from "../backend/client";
+import CreateTaskForm from "../components/CreateTaskForm";
 import TaskList from "../components/TaskList";
 import {
   TasksDocument,
@@ -20,6 +21,7 @@ export default function Home() {
       </Head>
 
       <main>
+        <CreateTaskForm />
         {result.loading ? (
           <p>Loading tasks...</p>
         ) : result.error ? (
