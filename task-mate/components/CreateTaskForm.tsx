@@ -7,7 +7,6 @@ interface Props {
 
 const CreateTaskForm: React.FC<Props> = ({ onSuccess }) => {
   const [title, setTitle] = useState("");
-
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
