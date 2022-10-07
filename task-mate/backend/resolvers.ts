@@ -46,7 +46,7 @@ export const resolvers: Resolvers<ApolloContext> = {
       const queryParams: string[] = [];
 
       if (status) {
-        query += " WHERE tasks_status = ?";
+        query += " WHERE task_status = ?";
         queryParams.push(status);
       }
 
