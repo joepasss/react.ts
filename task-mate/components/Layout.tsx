@@ -2,11 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-interface Props {
-  children: React.ReactNode;
-}
-
-const Layout: React.FC<Props> = ({ children }) => {
+const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <div className="page">
       <Link href="/">
@@ -14,6 +10,7 @@ const Layout: React.FC<Props> = ({ children }) => {
           <Image src={"/logo.png"} alt="logo" width={150} height={150} />
         </a>
       </Link>
+
       {children}
     </div>
   );

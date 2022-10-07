@@ -1,15 +1,15 @@
-import { GetServerSideProps } from "next";
-import Error from "next/error";
 import { useRouter } from "next/router";
+import Error from "next/error";
 import React from "react";
-import { initializeApollo } from "../../backend/client";
-import UpdateTaskForm from "../../components/UpdateTaskForm";
 import {
-  TaskDocument,
+  useTaskQuery,
   TaskQuery,
   TaskQueryVariables,
-  useTaskQuery,
+  TaskDocument,
 } from "../../generated/graphql-frontend";
+import UpdateTaksForm from "../../components/UpdateTaksForm";
+import { GetServerSideProps } from "next";
+import { initializeApollo } from "../../backend/client";
 
 const UpdateTask = () => {
   const router = useRouter();
@@ -25,11 +25,11 @@ const UpdateTask = () => {
 
   const task = data?.task;
   return loading ? (
-    <p>Loading ...</p>
+    <p>Loading...</p>
   ) : error ? (
-    <p>An error occurrd.</p>
+    <p>An Error occured.</p>
   ) : task ? (
-    <UpdateTaskForm id={task.id} initialValues={{ title: task.title }} />
+    <UpdateTaksForm id={task.id} initialValues={{ title: task.title }} />
   ) : (
     <p>task not found.</p>
   );
@@ -48,7 +48,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       variables: { id },
     });
 
-    return { props: { initialApolloState: apolloClient.cache.extract() } };
+    return {
+      props: {
+        inititalApolloState: apolloClient.cache.extract(),
+      },
+    };
   }
 
   return { props: {} };
