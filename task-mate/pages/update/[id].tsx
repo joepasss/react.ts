@@ -7,7 +7,7 @@ import {
   TaskQueryVariables,
   TaskDocument,
 } from "../../generated/graphql-frontend";
-import UpdateTaksForm from "../../components/UpdateTaksForm";
+import UpdateTaskForm from "../../components/UpdateTaskForm";
 import { GetServerSideProps } from "next";
 import { initializeApollo } from "../../backend/client";
 
@@ -29,7 +29,7 @@ const UpdateTask = () => {
   ) : error ? (
     <p>An Error occured.</p>
   ) : task ? (
-    <UpdateTaksForm id={task.id} initialValues={{ title: task.title }} />
+    <UpdateTaskForm id={task.id} initialValues={{ title: task.title }} />
   ) : (
     <p>task not found.</p>
   );
