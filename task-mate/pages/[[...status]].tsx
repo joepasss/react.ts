@@ -15,6 +15,7 @@ import {
 import { useEffect, useRef } from "react";
 import TaskFilter from "../components/TaskFilter";
 import { GetServerSideProps } from "next";
+import Custom404 from "./404";
 
 const isTaskStatus = (value: string): value is TaskStatus =>
   Object.values(TaskStatus).includes(value as TaskStatus);
@@ -22,12 +23,12 @@ const isTaskStatus = (value: string): value is TaskStatus =>
 export default function Home() {
   const router = useRouter();
   const status =
-    typeof router.query.status === "string"
-      ? (router.query.status as TaskStatus)
+    Array.isArray(router.query.status) && router.query.status.length
+      ? (router.query.status[0] as TaskStatus)
       : undefined;
 
-  if (!status === undefined && !isTaskStatus(status)) {
-    return <Error statusCode={404} />;
+  if (status !== undefined && !isTaskStatus(status)) {
+    return <Custom404 />;
   }
 
   const prevStatus = useRef(status);
