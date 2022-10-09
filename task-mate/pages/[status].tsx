@@ -1,8 +1,8 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
+import Error from "next/error";
 import { initializeApollo } from "../backend/client";
-import CreateTaskForm from "../components/CreateTaskForm";
-import TaskFilter from "../components/TaskFilter";
+import CreatTaskForm from "../components/CreatTaskForm";
 import TaskList from "../components/TaskList";
 import {
   TasksDocument,
@@ -11,9 +11,9 @@ import {
   TaskStatus,
   useTasksQuery,
 } from "../generated/graphql-frontend";
-import Error from "next/error";
-import { GetServerSideProps } from "next";
 import { useEffect, useRef } from "react";
+import TaskFilter from "../components/TaskFilter";
+import { GetServerSideProps } from "next";
 
 const isTaskStatus = (value: string): value is TaskStatus =>
   Object.values(TaskStatus).includes(value as TaskStatus);
@@ -25,19 +25,16 @@ export default function Home() {
       ? (router.query.status as TaskStatus)
       : undefined;
 
-  if (status !== undefined && !isTaskStatus(status)) {
+  if (!status === undefined && !isTaskStatus(status)) {
     return <Error statusCode={404} />;
   }
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const prevStatus = useRef(status);
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     prevStatus.current = status;
   }, [status]);
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const result = useTasksQuery({
     variables: { status },
     fetchPolicy:
@@ -54,8 +51,8 @@ export default function Home() {
       </Head>
 
       <main>
-        <CreateTaskForm onSuccess={result.refetch} />
-        {result.loading && !tasks ? (
+        <CreatTaskForm onSuccess={result.refetch} />
+        {result.loading ? (
           <p>Loading ...</p>
         ) : tasks && tasks.length > 0 ? (
           <TaskList tasks={tasks} />
@@ -74,7 +71,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       ? (context.params.status as TaskStatus)
       : undefined;
 
-  if (status === undefined || isTaskStatus(status)) {
+  if (status === undefined && !isTaskStatus(status)) {
     const apolloClient = initializeApollo();
 
     await apolloClient.query<TasksQuery, TasksQueryVariables>({

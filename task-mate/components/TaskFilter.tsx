@@ -10,20 +10,20 @@ const TaskFilter: FC<Props> = ({ status }) => {
   return (
     <ul className="task-filter">
       <li>
-        <Link href="/" scroll={false}>
+        <Link href={"/"}>
           <a className={!status ? "task-filter-active" : ""}>All</a>
         </Link>
       </li>
 
       <li>
         <Link
-          href="/[status]"
+          href={"/[status]"}
           as={`/${TaskStatus.Active}`}
           scroll={false}
           shallow={true}
         >
           <a
-            className={status == TaskStatus.Active ? "task-filter-active" : ""}
+            className={status === TaskStatus.Active ? "task-filter-active" : ""}
           >
             Active
           </a>
@@ -32,14 +32,14 @@ const TaskFilter: FC<Props> = ({ status }) => {
 
       <li>
         <Link
-          href="/[status]"
+          href={"/[status]"}
           as={`/${TaskStatus.Completed}`}
           scroll={false}
           shallow={true}
         >
           <a
             className={
-              status == TaskStatus.Completed ? "task-filter-active" : ""
+              status === TaskStatus.Completed ? "task-filter-active" : ""
             }
           >
             Completed
