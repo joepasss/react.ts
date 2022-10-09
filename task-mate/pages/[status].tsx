@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Error from "next/error";
 import { initializeApollo } from "../backend/client";
-import CreatTaskForm from "../components/CreatTaskForm";
+import CreatTaskForm from "../components/CreateTaskForm";
 import TaskList from "../components/TaskList";
 import {
   TasksDocument,
