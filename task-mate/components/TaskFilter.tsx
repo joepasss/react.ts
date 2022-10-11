@@ -10,7 +10,7 @@ const TaskFilter: FC<Props> = ({ status }) => {
   return (
     <ul className="task-filter">
       <li>
-        <Link href={"/"}>
+        <Link href={"/"} shallow={true}>
           <a className={!status ? "task-filter-active" : ""}>All</a>
         </Link>
       </li>
